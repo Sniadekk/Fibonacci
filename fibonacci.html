@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" src="style.css">
+<style>
+table{
+	border-collapse: collapse;
+	table-layout: fixed;
+    
+}
+td{
+	color:white;
+	width:125px;
+}
+.licznik{
+	background-color:#4a4f56;
+}
+.fib{
+	background-color: #6b6c6d;
+}
+.nazwa{
+	color:white;
+	background-color: #576987;
+}
+</style>
+</head>
+<body>
+<canvas id="canvas"> </canvas>
+
+<script>
+const table = "<table>";
+const tableE = "</table>";
+const tr = "<tr>";
+const trE = "</tr>";
+const td = "<td>";
+const tdN = '<td class = "nazwa">';
+const tdF = '<td class = "fib" >';
+const tdL = '<td class = "licznik">';
+const tdE = "</td>";
+
+	// function fib(liczba)
+	// {
+	// 	if( liczba == 0 || liczba == 1)
+	// 	{
+	// 		return 1
+	// 	}
+	// 	else 
+	// 	{
+	// 		return fib(liczba - 1) + fib (liczba - 2);
+	// 	}
+
+
+	// }
+
+	function fib(liczba)
+	{
+		let x = 0, y = 1, wynik = 0;
+		 while (liczba >= 0){
+   			wynik = x;
+    		x = x + y;
+    		y = wynik;
+    		liczba--;
+    	}
+    	return wynik;
+  }
+
+	function wypisz(liczba)
+	{	
+		document.write(table);
+		document.write(tr);
+		document.write(tdN + "CYKL" + tdE);
+		for(let x = 1 ; x < liczba ; x++)
+		{
+			document.write(tdL + x + tdE);
+		}
+		document.write(trE);
+		document.write(tr + tdN + "ILOŚĆ" + tdE);
+		for(let x = 1; x < liczba ; x++)
+		{
+			
+			document.write(tdF + fib(x) + tdE);
+		}
+		document.write(trE);
+
+		document.write(tableE);
+	}
+
+	wypisz(35);
+	let kierunek = 0;
+	function rysuj(){
+		let canvas = document.getElementById("canvas");
+		let ctx = canvas.getContext('2d');
+		let height = window.innerHeight;
+		let width = window.innerWidth;
+		canvas.height = height;
+		canvas.width = width;
+		let nextX = width/2;
+		let nextY = height/2;
+		for(let x = 0; x < 20 ; x++)
+		{
+			let wid = fib(x);
+			ctx.strokeRect(nextX,nextY,wid,wid);
+			if(kierunek == 0)
+			{
+				
+				nextY-=wid;
+				kierunek++;
+			}
+			else if(kierunek == 1)
+			{
+				nextX+=wid;
+				kierunek++;
+				
+			}
+			else if(kierunek == 2)
+			{
+				nextY+=wid;
+				kierunek++;
+				
+			}
+			else if(kierunek == 3)
+			{
+				nextX-=wid;
+				kierunek = 0;
+			}
+			}
+			
+		
+	}
+	rysuj();
+</script>
+</body>
+</html>
